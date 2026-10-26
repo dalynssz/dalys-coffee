@@ -1,17 +1,17 @@
-   # Dependencias
-   node_modules/
+# Dependencias
+node_modules/
 
-   # Variables de entorno (claves secretas)
-   .env
-   .env.*
-   !.env.example
+# Variables de entorno (claves secretas)
+.env
+.env.*
+!.env.example
 
-   # Builds
-   dist/
-   build/
+# Builds
+dist/
+build/
 
-   # Sistema / editor
-   .DS_Store
-   Thumbs.db
-   .vscode/
-   *.log
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
