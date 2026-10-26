@@ -1,321 +1,1255 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dalys Coffee</title>
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Daly's Coffee</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
+
 <body>
-    
-    <header>
-        <nav>
-            <h1>Dalys Coffee</h1>
 
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Menú</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li><a href="#">Carrito</a></li>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a
+                href="#inicio"
+                class="logo"
+            >
+                ♡ Daly's Coffee
+            </a>
+
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+            >
+                ☰
+            </button>
+
+
+            <ul
+                class="nav-menu"
+                id="nav-menu"
+            >
+
+                <li>
+                    <a href="#inicio">
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#menu">
+                        Menú
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#personaliza">
+                        Personaliza
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#nosotros">
+                        Nosotros
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#contacto">
+                        Contacto
+                    </a>
+                </li>
+
+                <li>
+                    <button
+                        class="cart-button"
+                        id="open-cart"
+                    >
+                        🛒 Carrito
+                        <span id="cart-count">0</span>
+                    </button>
+                </li>
+
             </ul>
+
         </nav>
+
     </header>
-    <section class="hero">
-        <h2>Bienvenido a Dalys Coffee</h2>
-        <p>
-            Donde cada taza está preparada con amor y cada rincón está diseñado para hacerte sentir como en casa.
-        </p>
-        <a href="#menu" class="btn-menu">Ver menú</a>
+
+
+
+    <!-- =========================
+         INICIO
+    ========================== -->
+
+    <section
+        class="hero"
+        id="inicio"
+    >
+
+        <div class="hero-content">
+
+            <p class="small-title">
+                BIENVENIDA A DALY'S COFFEE
+            </p>
+
+            <h1>
+                Café hecho
+                <span>
+                    para ti
+                </span>
+                ♡
+            </h1>
+
+            <p>
+                Un espacio para disfrutar café,
+                bebidas deliciosas y pequeños
+                momentos especiales.
+            </p>
+
+            <a
+                href="#menu"
+                class="main-button"
+            >
+                Ver menú
+            </a>
+
+        </div>
+
+
+        <div class="hero-decoration">
+            ☕
+        </div>
+
     </section>
-    <section class="menu" id="menu">
 
-    <h2>Nuestro Menú</h2>
 
-    <!-- Cafés Calientes -->
-    <div class="categoria">
-        <h3>Cafés Calientes</h3>
 
-        <div class="cards">
+    <!-- =========================
+         MENÚ
+    ========================== -->
 
-            <div class="card">
-                <img src="img/espresso.jpg" alt="Espresso">
-                <h4>Espresso</h4>
-                <p>$6.000</p>
+    <section
+        class="menu-section"
+        id="menu"
+    >
+
+        <div class="section-title">
+
+            <p>
+                NUESTRO MENÚ
+            </p>
+
+            <h2>
+                Algo para cada antojo
+            </h2>
+
+        </div>
+
+
+        <div id="menu-container"></div>
+
+    </section>
+
+
+
+    <!-- =========================
+         PERSONALIZACIÓN
+    ========================== -->
+
+    <section
+        class="custom-section"
+        id="personaliza"
+    >
+
+        <div class="section-title">
+
+            <p>
+                PERSONALIZA
+            </p>
+
+            <h2>
+                Crea tu bebida perfecta ♡
+            </h2>
+
+            <p>
+                Elige tu bebida y personalízala
+                a tu gusto.
+            </p>
+
+        </div>
+
+
+        <div class="custom-card">
+
+
+            <!-- BEBIDA -->
+
+            <div class="custom-group">
+
+                <h3>
+                    ☕ Elige tu bebida
+                </h3>
+
+
+                <select id="custom-base">
+
+
+                    <!-- CAFÉS CALIENTES -->
+
+                    <option
+                        value="Espresso"
+                        data-price="6000"
+                    >
+                        Espresso - $6.000
+                    </option>
+
+                    <option
+                        value="Espresso Doble"
+                        data-price="7500"
+                    >
+                        Espresso Doble - $7.500
+                    </option>
+
+                    <option
+                        value="Americano"
+                        data-price="7000"
+                    >
+                        Americano - $7.000
+                    </option>
+
+                    <option
+                        value="Cappuccino"
+                        data-price="9000"
+                    >
+                        Cappuccino - $9.000
+                    </option>
+
+                    <option
+                        value="Capuchino de Vainilla"
+                        data-price="10000"
+                    >
+                        Capuchino de Vainilla - $10.000
+                    </option>
+
+                    <option
+                        value="Latte"
+                        data-price="9500"
+                    >
+                        Latte - $9.500
+                    </option>
+
+                    <option
+                        value="Latte Macchiato"
+                        data-price="10500"
+                    >
+                        Latte Macchiato - $10.500
+                    </option>
+
+                    <option
+                        value="Moca"
+                        data-price="10500"
+                    >
+                        Moca - $10.500
+                    </option>
+
+                    <option
+                        value="Moccaccino"
+                        data-price="10500"
+                    >
+                        Moccaccino - $10.500
+                    </option>
+
+                    <option
+                        value="Caramel Macchiato"
+                        data-price="11000"
+                    >
+                        Caramel Macchiato - $11.000
+                    </option>
+
+                    <option
+                        value="Café Nutella"
+                        data-price="12500"
+                    >
+                        Café Nutella - $12.500
+                    </option>
+
+                    <option
+                        value="Café Dalgona"
+                        data-price="12000"
+                    >
+                        Café Dalgona - $12.000
+                    </option>
+
+                    <option
+                        value="Chocolate Caliente"
+                        data-price="9000"
+                    >
+                        Chocolate Caliente - $9.000
+                    </option>
+
+
+                    <!-- CAFÉS FRÍOS -->
+
+                    <option
+                        value="Iced Americano"
+                        data-price="8000"
+                    >
+                        Iced Americano - $8.000
+                    </option>
+
+                    <option
+                        value="Iced Latte"
+                        data-price="10000"
+                    >
+                        Iced Latte - $10.000
+                    </option>
+
+                    <option
+                        value="Iced Latte Macchiato"
+                        data-price="11500"
+                    >
+                        Iced Latte Macchiato - $11.500
+                    </option>
+
+                    <option
+                        value="Iced Moca"
+                        data-price="11000"
+                    >
+                        Iced Moca - $11.000
+                    </option>
+
+                    <option
+                        value="Iced Caramel Latte"
+                        data-price="11500"
+                    >
+                        Iced Caramel Latte - $11.500
+                    </option>
+
+                    <option
+                        value="Iced Café Nutella"
+                        data-price="13000"
+                    >
+                        Iced Café Nutella - $13.000
+                    </option>
+
+                    <option
+                        value="Cold Brew"
+                        data-price="10500"
+                    >
+                        Cold Brew - $10.500
+                    </option>
+
+                    <option
+                        value="Affogato"
+                        data-price="12000"
+                    >
+                        Affogato - $12.000
+                    </option>
+
+
+                    <!-- BEBIDAS ESPECIALES -->
+
+                    <option
+                        value="Pink Velvet Latte"
+                        data-price="12500"
+                    >
+                        Pink Velvet Latte - $12.500
+                    </option>
+
+                    <option
+                        value="Matcha Latte"
+                        data-price="12000"
+                    >
+                        Matcha Latte - $12.000
+                    </option>
+
+                    <option
+                        value="Chai Latte"
+                        data-price="11500"
+                    >
+                        Chai Latte - $11.500
+                    </option>
+
+                    <option
+                        value="Chocolate Blanco Caliente"
+                        data-price="10500"
+                    >
+                        Chocolate Blanco Caliente - $10.500
+                    </option>
+
+                    <option
+                        value="Golden Latte (Cúrcuma y Miel)"
+                        data-price="11500"
+                    >
+                        Golden Latte (Cúrcuma y Miel) - $11.500
+                    </option>
+
+                    <option
+                        value="Chocolate Rosa"
+                        data-price="12000"
+                    >
+                        Chocolate Rosa - $12.000
+                    </option>
+
+
+                    <!-- NIEVES -->
+
+                    <option
+                        value="Nieve de Café Clásico"
+                        data-price="14000"
+                    >
+                        Nieve de Café Clásico - $14.000
+                    </option>
+
+                    <option
+                        value="Nieve de Chocolate"
+                        data-price="14500"
+                    >
+                        Nieve de Chocolate - $14.500
+                    </option>
+
+                    <option
+                        value="Nieve de Arequipe"
+                        data-price="14500"
+                    >
+                        Nieve de Arequipe - $14.500
+                    </option>
+
+                    <option
+                        value="Nieve de Caramelo"
+                        data-price="14500"
+                    >
+                        Nieve de Caramelo - $14.500
+                    </option>
+
+                    <option
+                        value="Nieve de Vainilla"
+                        data-price="14000"
+                    >
+                        Nieve de Vainilla - $14.000
+                    </option>
+
+                    <option
+                        value="Nieve de Moca"
+                        data-price="15000"
+                    >
+                        Nieve de Moca - $15.000
+                    </option>
+
+                    <option
+                        value="Nieve de Cookies & Cream"
+                        data-price="15500"
+                    >
+                        Nieve de Cookies & Cream - $15.500
+                    </option>
+
+                    <option
+                        value="Nieve de Avellana"
+                        data-price="15500"
+                    >
+                        Nieve de Avellana - $15.500
+                    </option>
+
+                    <option
+                        value="Nieve de Matcha"
+                        data-price="15500"
+                    >
+                        Nieve de Matcha - $15.500
+                    </option>
+
+                    <option
+                        value="Nieve de Fresa"
+                        data-price="15000"
+                    >
+                        Nieve de Fresa - $15.000
+                    </option>
+
+
+                    <!-- FRAPPÉS -->
+
+                    <option
+                        value="Frappé Clásico"
+                        data-price="13000"
+                    >
+                        Frappé Clásico - $13.000
+                    </option>
+
+                    <option
+                        value="Frappé de Chocolate"
+                        data-price="14000"
+                    >
+                        Frappé de Chocolate - $14.000
+                    </option>
+
+                    <option
+                        value="Frappé de Moca"
+                        data-price="14000"
+                    >
+                        Frappé de Moca - $14.000
+                    </option>
+
+                    <option
+                        value="Frappé de Caramelo"
+                        data-price="14000"
+                    >
+                        Frappé de Caramelo - $14.000
+                    </option>
+
+                    <option
+                        value="Frappé de Oreo"
+                        data-price="15000"
+                    >
+                        Frappé de Oreo - $15.000
+                    </option>
+
+                    <option
+                        value="Frappé de Fresa"
+                        data-price="14000"
+                    >
+                        Frappé de Fresa - $14.000
+                    </option>
+
+                    <option
+                        value="Frappé de Matcha"
+                        data-price="15000"
+                    >
+                        Frappé de Matcha - $15.000
+                    </option>
+
+                </select>
+
             </div>
 
-            <div class="card">
-                <img src="img/latte.jpg" alt="Latte">
-                <h4>Latte</h4>
-                <p>$9.500</p>
+
+
+            <!-- LECHE -->
+
+            <div class="custom-group">
+
+                <h3>
+                    🥛 Tipo de leche
+                </h3>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="milk"
+                        value="Leche entera"
+                        data-price="0"
+                        checked
+                    >
+                    Leche entera
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="milk"
+                        value="Leche deslactosada"
+                        data-price="0"
+                    >
+                    Leche deslactosada
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="milk"
+                        value="Leche de almendras"
+                        data-price="2000"
+                    >
+                    Leche de almendras +$2.000
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="milk"
+                        value="Leche de avena"
+                        data-price="2000"
+                    >
+                    Leche de avena +$2.000
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="milk"
+                        value="Leche de coco"
+                        data-price="2000"
+                    >
+                    Leche de coco +$2.000
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="milk"
+                        value="Leche de soya"
+                        data-price="2000"
+                    >
+                    Leche de soya +$2.000
+                </label>
+
             </div>
 
-        </div>
-    </div>
 
-    <!-- Cafés Fríos -->
-    <div class="categoria">
-        <h3>Cafés Fríos</h3>
 
-        <div class="cards">
+            <!-- TAMAÑO -->
 
-            <div class="card">
-                <img src="img/iced-latte.jpg" alt="Iced Latte">
-                <h4>Iced Latte</h4>
-                <p>$10.000</p>
+            <div class="custom-group">
+
+                <h3>
+                    🥤 Tamaño
+                </h3>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="size"
+                        value="Pequeño 12 oz"
+                        data-price="0"
+                        checked
+                    >
+                    Pequeño - 12 oz
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="size"
+                        value="Mediano 16 oz"
+                        data-price="2000"
+                    >
+                    Mediano - 16 oz +$2.000
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="size"
+                        value="Grande 20 oz"
+                        data-price="4000"
+                    >
+                    Grande - 20 oz +$4.000
+                </label>
+
             </div>
 
-            <div class="card">
-                <img src="img/cold-brew.jpg" alt="Cold Brew">
-                <h4>Cold Brew</h4>
-                <p>$10.500</p>
+
+
+            <!-- ENDULZANTE -->
+
+            <div class="custom-group">
+
+                <h3>
+                    🍯 Endulzante
+                </h3>
+
+                <select id="sweetener">
+
+                    <option
+                        value="Azúcar blanca"
+                        data-price="0"
+                    >
+                        Azúcar blanca
+                    </option>
+
+                    <option
+                        value="Azúcar morena"
+                        data-price="0"
+                    >
+                        Azúcar morena
+                    </option>
+
+                    <option
+                        value="Panela"
+                        data-price="0"
+                    >
+                        Panela
+                    </option>
+
+                    <option
+                        value="Miel"
+                        data-price="1000"
+                    >
+                        Miel +$1.000
+                    </option>
+
+                    <option
+                        value="Stevia"
+                        data-price="0"
+                    >
+                        Stevia
+                    </option>
+
+                    <option
+                        value="Sin azúcar"
+                        data-price="0"
+                    >
+                        Sin azúcar
+                    </option>
+
+                </select>
+
             </div>
 
+
+
+            <!-- JARABES -->
+
+            <div class="custom-group">
+
+                <h3>
+                    🍫 Jarabes y salsas
+                </h3>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Vainilla"
+                        data-price="1500"
+                    >
+                    Vainilla +$1.500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Caramelo"
+                        data-price="1500"
+                    >
+                    Caramelo +$1.500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Avellana"
+                        data-price="1500"
+                    >
+                    Avellana +$1.500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Chocolate"
+                        data-price="1500"
+                    >
+                    Chocolate +$1.500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Arequipe"
+                        data-price="1500"
+                    >
+                    Arequipe +$1.500
+                </label>
+
+            </div>
+
+
+
+            <!-- EXTRAS -->
+
+            <div class="custom-group">
+
+                <h3>
+                    ✨ Extras
+                </h3>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Shot extra espresso"
+                        data-price="2000"
+                    >
+                    Shot extra espresso +$2.000
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Crema batida"
+                        data-price="1500"
+                    >
+                    Crema batida +$1.500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Chips de chocolate"
+                        data-price="1000"
+                    >
+                    Chips de chocolate +$1.000
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Mini malvaviscos"
+                        data-price="1500"
+                    >
+                    Mini malvaviscos +$1.500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Canela"
+                        data-price="500"
+                    >
+                    Canela +$500
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        value="Cocoa"
+                        data-price="500"
+                    >
+                    Cocoa +$500
+                </label>
+
+            </div>
+
+
+
+            <!-- TEMPERATURA -->
+
+            <div class="custom-group">
+
+                <h3>
+                    🌡️ Temperatura
+                </h3>
+
+                <select id="temperature">
+
+                    <option value="Caliente">
+                        Caliente
+                    </option>
+
+                    <option value="Tibia">
+                        Tibia
+                    </option>
+
+                    <option value="Fría">
+                        Fría
+                    </option>
+
+                    <option value="Extra fría">
+                        Extra fría
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <button
+                class="main-button"
+                id="save-customization"
+                type="button"
+            >
+                Agregar al carrito ♡
+            </button>
+
+
+            <p id="custom-message"></p>
+
         </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         NOSOTROS
+    ========================== -->
+
+    <section
+        class="about-section"
+        id="nosotros"
+    >
+
+        <div class="about-text">
+
+            <p class="small-title">
+                SOBRE DALY'S COFFEE
+            </p>
+
+            <h2>
+                Un café hecho con cariño ♡
+            </h2>
+
+            <p>
+                Daly's Coffee es un espacio pensado
+                para disfrutar de una buena bebida,
+                algo delicioso para acompañar y esos
+                pequeños momentos que hacen especial
+                cada día.
+            </p>
+
+            <p>
+                Nuestro objetivo es crear una experiencia
+                agradable, cálida y personalizada para
+                cada persona que nos visita.
+            </p>
+
+        </div>
+
+
+        <div class="about-decoration">
+            ☕
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CONTACTO
+    ========================== -->
+
+    <section
+        class="contact-section"
+        id="contacto"
+    >
+
+        <div class="section-title">
+
+            <p>
+                CONTÁCTANOS
+            </p>
+
+            <h2>
+                Queremos escucharte ♡
+            </h2>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+
+            <div class="contact-info">
+
+                <h3>
+                    📍 Ubicación
+                </h3>
+
+                <p>
+                    Barranquilla, Colombia
+                </p>
+
+
+                <h3>
+                    📧 Correo
+                </h3>
+
+                <p>
+                    dalyscoffee@gmail.com
+                </p>
+
+
+                <h3>
+                    📱 Redes sociales
+                </h3>
+
+                <p>
+                    @dalyscoffee
+                </p>
+
+            </div>
+
+
+
+            <form id="contact-form">
+
+                <label for="contact-name">
+                    Nombre
+                </label>
+
+                <input
+                    type="text"
+                    id="contact-name"
+                    placeholder="Tu nombre"
+                >
+
+                <small id="name-error"></small>
+
+
+                <label for="contact-email">
+                    Correo
+                </label>
+
+                <input
+                    type="email"
+                    id="contact-email"
+                    placeholder="tu@email.com"
+                >
+
+                <small id="email-error"></small>
+
+
+                <label for="contact-message">
+                    Mensaje
+                </label>
+
+                <textarea
+                    id="contact-message"
+                    rows="5"
+                    placeholder="Escribe tu mensaje..."
+                ></textarea>
+
+                <small id="message-error"></small>
+
+
+                <button
+                    type="submit"
+                    class="main-button"
+                >
+                    Enviar mensaje ♡
+                </button>
+
+
+                <p id="form-message"></p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CARRITO
+    ========================== -->
+
+    <div
+        class="cart-overlay"
+        id="cart-overlay"
+    >
+
+        <div class="cart">
+
+            <button
+                class="close-cart"
+                id="close-cart"
+            >
+                ✕
+            </button>
+
+
+            <h2>
+                🛒 Tu carrito
+            </h2>
+
+
+            <div id="cart-items">
+
+                <p>
+                    Tu carrito está vacío ☕
+                </p>
+
+            </div>
+
+
+            <div class="cart-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cart-total">
+                    $0
+                </strong>
+
+            </div>
+
+
+            <button
+                class="main-button checkout-button"
+                id="checkout"
+            >
+                Finalizar pedido ♡
+            </button>
+
+        </div>
+
     </div>
-    <div class="categoria">
-    <h3>Postres</h3>
 
-    <div class="cards">
 
-        <div class="card">
-            <img src="img/cheesecake.jpg" alt="Cheesecake">
-            <h4>Cheesecake de Fresa</h4>
-            <p>$12.000</p>
-        </div>
 
-        <div class="card">
-            <img src="img/brownie.jpg" alt="Brownie">
-            <h4>Brownie con Helado</h4>
-            <p>$13.500</p>
-        </div>
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
-    </div>
-</div>
-<!-- Bebidas Especiales -->
-<div class="categoria">
-    <h3>Bebidas Especiales</h3>
+    <footer>
 
-    <div class="cards">
-        <div class="card">
-            <img src="img/pink-velvet-latte.jpg" alt="Pink Velvet Latte">
-            <h4>Pink Velvet Latte</h4>
-            <p>$12.500</p>
-        </div>
-
-        <div class="card">
-            <img src="img/matcha-latte.jpg" alt="Matcha Latte">
-            <h4>Matcha Latte</h4>
-            <p>$12.000</p>
-        </div>
-    </div>
-</div>
-
-<!-- Nieves -->
-<div class="categoria">
-    <h3>Nieves</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/nieve-cafe.jpg" alt="Nieve de Café Clásico">
-            <h4>Nieve de Café Clásico</h4>
-            <p>$14.000</p>
-        </div>
-
-        <div class="card">
-            <img src="img/nieve-chocolate.jpg" alt="Nieve de Chocolate">
-            <h4>Nieve de Chocolate</h4>
-            <p>$14.500</p>
-        </div>
-    </div>
-</div>
-
-<!-- Frappés -->
-<div class="categoria">
-    <h3>Frappés</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/frappe-clasico.jpg" alt="Frappé Clásico">
-            <h4>Frappé Clásico</h4>
-            <p>$13.000</p>
-        </div>
-
-        <div class="card">
-            <img src="img/frappe-oreo.jpg" alt="Frappé de Oreo">
-            <h4>Frappé de Oreo</h4>
-            <p>$15.000</p>
-        </div>
-    </div>
-</div>
-
-<!-- Tés -->
-<div class="categoria">
-    <h3>Tés</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/te-verde.jpg" alt="Té Verde">
-            <h4>Té Verde</h4>
-            <p>$6.500</p>
-        </div>
-
-        <div class="card">
-            <img src="img/te-chai.jpg" alt="Té Chai">
-            <h4>Té Chai</h4>
-            <p>$8.000</p>
-        </div>
-    </div>
-</div>
-
-<!-- Bebidas Refrescantes -->
-<div class="categoria">
-    <h3> Bebidas Refrescantes</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/limonada-coco.jpg" alt="Limonada de Coco">
-            <h4>Limonada de Coco</h4>
-            <p>$10.500</p>
-        </div>
-
-        <div class="card">
-            <img src="img/soda-italiana.jpg" alt="Soda Italiana">
-            <h4>Soda Italiana</h4>
-            <p>$11.000</p>
-        </div>
-    </div>
-</div>
-
-<!-- Panadería -->
-<div class="categoria">
-    <h3>Panadería</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/croissant.jpg" alt="Croissant de Mantequilla">
-            <h4>Croissant de Mantequilla</h4>
-            <p>$5.000</p>
-        </div>
-
-        <div class="card">
-            <img src="img/roll-canela.jpg" alt="Roll de Canela">
-            <h4>Roll de Canela</h4>
-            <p>$8.500</p>
-        </div>
-    </div>
-</div>
-
-<!-- Postres -->
-<div class="categoria">
-    <h3>Postres</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/cheesecake-fresa.jpg" alt="Cheesecake de Fresa">
-            <h4>Cheesecake de Fresa</h4>
-            <p>$12.000</p>
-        </div>
-
-        <div class="card">
-            <img src="img/brownie.jpg" alt="Brownie con Helado">
-            <h4>Brownie con Helado</h4>
-            <p>$13.500</p>
-        </div>
-    </div>
-</div>
-
-<!-- Combos -->
-<div class="categoria">
-    <h3>Combos</h3>
-
-    <div class="cards">
-        <div class="card">
-            <img src="img/combo-desayuno.jpg" alt="Combo Desayuno">
-            <h4>Combo Desayuno</h4>
-            <p>$13.500</p>
-        </div>
-
-        <div class="card">
-            <img src="img/combo-dalys.jpg" alt="Combo Daly's">
-            <h4>Combo Daly's</h4>
-            <p>$25.500</p>
-        </div>
-    </div>
-</div>
-
-<section class="nosotros" id="nosotros">
-
-    <div class="nosotros-texto">
-        <h2>Sobre Nosotros</h2>
+        <h2>
+            Daly's Coffee ♡
+        </h2>
 
         <p>
-            En Daly's Coffee creemos que cada taza de café cuenta una historia.
-            Nuestro objetivo es ofrecer bebidas y postres preparados con ingredientes
-            de calidad en un ambiente cálido, elegante y acogedor.
+            Café, dulces y momentos especiales.
         </p>
+
+
+        <div class="socials">
+
+            <a href="#">
+                Instagram
+            </a>
+
+            <a href="#">
+                TikTok
+            </a>
+
+            <a href="#">
+                Facebook
+            </a>
+
+        </div>
+
 
         <p>
-            Más que una cafetería, somos un lugar para compartir momentos especiales,
-            estudiar, trabajar o simplemente disfrutar de una buena taza de café.
+            © 2026 Daly's Coffee
         </p>
-    </div>
+        <a href="login.html" class="admin-link">
+    ♡ Administración
+</a>
 
-    <div class="nosotros-img">
-        <img src="img/cafeteria.jpg" alt="Daly's Coffee">
-    </div>
+    </footer>
 
-</section>
+<!-- =========================
+     ASISTENTE DALY'S COFFEE
+========================= -->
 
-<section class="contacto" id="contacto">
+<button
+    id="ai-button"
+    class="ai-button"
+    type="button"
+>
+    ☕
+</button>
 
-    <h2>Contáctanos</h2>
 
-    <div class="contacto-contenido">
+<div
+    id="ai-chat"
+    class="ai-chat"
+>
 
-        <div class="info">
-            <h3>Dirección</h3>
-            <p>Barranquilla, Colombia</p>
+    <div class="ai-header">
 
-            <h3>Teléfono</h3>
-            <p>+57 300 123 4567</p>
+        <div>
+            <strong>
+                ♡ Daly's Assistant
+            </strong>
 
-            <h3>Correo</h3>
-            <p>info@dalyscoffee.com</p>
-
-            <h3>Horario</h3>
-            <p>Lunes a Domingo<br>8:00 a.m. - 9:00 p.m.</p>
+            <small>
+                Estoy aquí para ayudarte
+            </small>
         </div>
 
-        <div class="mapa">
-            <img src="img/mapa.jpg" alt="Mapa Daly's Coffee">
+        <button
+            id="ai-close"
+            type="button"
+        >
+            ✕
+        </button>
+
+    </div>
+
+
+    <div
+        id="ai-messages"
+        class="ai-messages"
+    >
+
+        <div class="ai-message bot">
+            ¡Holaaa! 🩷☕
+            <br><br>
+            Soy el asistente de Daly's Coffee.
+            Puedo ayudarte a encontrar una bebida
+            que combine contigo.
+        </div>
+
+
+        <div class="ai-question">
+            ¿Qué se te antoja?
+        </div>
+
+
+        <div class="ai-options">
+
+            <button
+                type="button"
+                onclick="aiRecommend('coffee')"
+            >
+                ☕ Algo con café
+            </button>
+
+            <button
+                type="button"
+                onclick="aiRecommend('sweet')"
+            >
+                🍫 Algo dulce
+            </button>
+
+            <button
+                type="button"
+                onclick="aiRecommend('cold')"
+            >
+                🧊 Algo frío
+            </button>
+
+            <button
+                type="button"
+                onclick="aiRecommend('special')"
+            >
+                ✨ Algo diferente
+            </button>
+
         </div>
 
     </div>
 
-</section>
+</div>
 
-<footer>
+    <!-- =========================
+         SCRIPT
+    ========================== -->
 
-    <h2>Dalys Coffee</h2>
-
-    <p>Donde cada taza está preparada con amor.</p>
-
-    <div class="redes">
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">TikTok</a>
-    </div>
-
-    <p class="copy">
-        © 2026 Daly's Coffee. Todos los derechos reservados.
-    </p>
-
-</footer>
-
-</section>
     <script src="script.js"></script>
+
 </body>
+
 </html>
