@@ -131,6 +131,39 @@ function findMentioned(reply, products) {
     .map((p) => ({ name: p.name, price: p.price }));
 }
 
+// ---------- Plan B sin IA: recomendación por palabras clave ----------
+const RULES = [
+  { words: ["sin cafe", "sin café", "no tomo cafe", "no tomo café", "descafein"], categories: ["tes", "refrescantes"], names: ["Chocolate Caliente", "Golden Latte (Cúrcuma y Miel)", "Chocolate Rosa"] },
+  { words: ["frio", "frío", "fria", "fría", "calor", "helad", "refresc"], categories: ["frios", "nieves", "frappes"] },
+  { words: ["dulce", "postre", "torta", "pastel", "antojo"], categories: ["postres", "especiales"] },
+  { words: ["comer", "pan", "desayuno", "hambre", "croissant"], categories: ["panaderia", "combos"] },
+  { words: ["te ", "té", "infusion", "infusión"], categories: ["tes"] },
+  { words: ["combo", "compartir", "amig", "barato", "economic", "económic"], categories: ["combos"] },
+  { words: ["cafe", "café", "espresso", "latte", "capuchino", "cappuccino"], categories: ["calientes"] },
+];
+const INFO = [
+  { words: ["horario", "hora", "abren", "cierran", "abierto"], text: "Atendemos de lunes a sábado, de 7:00 a.m. a 8:00 p.m." },
+  { words: ["donde", "dónde", "ubica", "direccion", "dirección"], text: "Estamos en Barranquilla, Colombia." },
+  { words: ["correo", "contacto", "instagram", "redes"], text: "Puedes escribirnos a dalyscoffee@gmail.com o en redes como @dalyscoffee." },
+];
+
+function localRecommendation(question, products) {
+  const text = ` ${question.toLowerCase()} `;
+  const note = "\n\n(Respuesta automática: el asistente con IA no está disponible en este momento.)";
+  const info = INFO.find((r) => r.words.some((w) => text.includes(w)));
+  if (info) return { reply: info.text + note, products: [], fallback: true };
+
+  const rule = RULES.find((r) => r.words.some((w) => text.includes(w))) || { categories: ["especiales", "calientes"] };
+  let options = products.filter((p) => (rule.names || []).includes(p.name) || rule.categories.includes(p.category));
+  options = options.filter((p) => !p.name.startsWith("Agua")).sort(() => Math.random() - 0.5).slice(0, 3);
+  const list = options.map((p) => `${p.name} ($${p.price.toLocaleString("es-CO")})`).join(", ");
+  return {
+    reply: `Te pueden gustar: ${list}.${note}`,
+    products: options.map((p) => ({ name: p.name, price: p.price })),
+    fallback: true,
+  };
+}
+
 router.post("/", async (req, res) => {
   if (!process.env.GEMINI_API_KEY) {
     return res.status(503).json({ mensaje: "El asistente con IA todavía no está configurado en el servidor." });
@@ -160,10 +193,10 @@ router.post("/", async (req, res) => {
   });
 
   if (!result.ok) {
-    const mensaje = TEMPORARY.includes(result.status) || result.status === 0
-      ? "El asistente está muy solicitado en este momento. Inténtalo de nuevo en un minuto."
-      : "El asistente no pudo responder en este momento. Inténtalo más tarde.";
-    return res.status(502).json({ mensaje });
+    // Plan B: si Gemini no responde, damos una recomendación sencilla de la carta
+    // y lo avisamos con claridad (no fingimos que es la IA).
+    const question = messages[messages.length - 1].parts[0].text;
+    return res.json(localRecommendation(question, products));
   }
 
   const data = result.data;
