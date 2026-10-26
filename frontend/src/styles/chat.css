@@ -30,7 +30,7 @@
 
 .chat__panel {
   width: min(360px, calc(100vw - 40px));
-  max-height: min(560px, calc(100vh - 120px));
+  height: min(560px, calc(100vh - 120px));
   display: flex;
   flex-direction: column;
   background: var(--papel);
@@ -71,19 +71,54 @@
 }
 
 .chat__body {
+  flex: 1;
   overflow-y: auto;
   padding: 18px;
-  display: grid;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat__row--user {
+  align-items: flex-end;
 }
 
 .chat__bubble {
-  justify-self: start;
-  max-width: 85%;
+  align-self: flex-start;
+  max-width: 88%;
   padding: 10px 14px;
   background: var(--blanco);
   border: 1px solid var(--linea);
   border-radius: 16px 16px 16px 4px;
+  white-space: pre-wrap;
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.chat__bubble--user {
+  align-self: flex-end;
+  background: var(--frambuesa);
+  border-color: var(--frambuesa);
+  color: #fff;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.chat__bubble--error {
+  background: #fff0f4;
+  border-color: var(--rosa-pastel);
+  color: var(--vino);
+  font-style: italic;
+}
+
+.chat__typing {
+  font-style: italic;
+  color: var(--texto-suave);
 }
 
 .chat__options {
@@ -99,46 +134,94 @@
   background: var(--blanco);
   color: var(--vino);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
-.chat__options button:hover,
-.chat__options button.is-active {
+.chat__options button:hover {
   background: var(--frambuesa);
   border-color: var(--frambuesa);
   color: #fff;
 }
 
-.chat__result {
+.chat__products {
   display: grid;
-  gap: 10px;
+  gap: 8px;
+  max-width: 88%;
 }
 
 .chat__card {
-  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px 10px 14px;
   background: var(--blanco);
   border: 1.5px solid var(--rosa-pastel);
   border-radius: 14px;
-  display: grid;
-  gap: 6px;
-  font-size: 0.95rem;
 }
 
 .chat__product {
-  font-size: 1.15rem;
   font-weight: 600;
+  line-height: 1.3;
   color: var(--vino);
 }
 
 .chat__price {
-  font-weight: 600;
+  font-size: 0.92rem;
   font-style: italic;
   color: var(--frambuesa);
 }
 
-.chat__card .button {
-  justify-self: start;
-  margin-top: 6px;
+.chat__form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--linea);
+  background: var(--blanco);
+}
+
+.chat__form input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 0.97rem;
+  color: var(--cafe);
+  background: var(--papel);
+  border: 1.5px solid var(--linea);
+  border-radius: 999px;
+}
+
+.chat__form input:focus {
+  outline: none;
+  border-color: var(--frambuesa);
+}
+
+.chat__send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--frambuesa);
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat__send:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 @media (max-width: 480px) {

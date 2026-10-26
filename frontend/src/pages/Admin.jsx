@@ -116,7 +116,7 @@ function Messages({ onLogout }) {
   return (
     <section aria-label="Mensajes de contacto">
       <p className="admin__summary">
-        {messages.length} mensajes · {unread} sin leer
+        {messages.length} {messages.length === 1 ? "mensaje" : "mensajes"} · {unread} sin leer
       </p>
       {status && <p className="form-status form-status--error">{status}</p>}
       {messages.length === 0 && (
