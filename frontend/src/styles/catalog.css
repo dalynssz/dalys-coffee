@@ -183,6 +183,12 @@
   50% { transform: scale(1.15); }
 }
 
+.catalog__empty {
+  text-align: center;
+  font-style: italic;
+  color: var(--texto-suave);
+}
+
 .catalog__hint {
   margin-top: 34px;
   padding-top: 20px;

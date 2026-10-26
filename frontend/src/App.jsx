@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRoute, navigate } from "./lib/router";
 import { getToken, clearToken } from "./lib/api";
 import Navbar from "./components/Navbar";
@@ -13,11 +13,11 @@ export default function App() {
   const path = useRoute();
   const [token, setToken] = useState(getToken);
 
-  function handleLogout() {
+  const handleLogout = useCallback((goTo = "/") => {
     clearToken();
     setToken(null);
-    navigate("/");
-  }
+    navigate(typeof goTo === "string" ? goTo : "/");
+  }, []);
 
   let page;
   if (path === "/login") page = <Login onLogin={setToken} />;
