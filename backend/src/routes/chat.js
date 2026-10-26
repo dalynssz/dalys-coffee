@@ -16,21 +16,36 @@ const MODELS = [
   process.env.GEMINI_FALLBACK_MODEL || "gemini-flash-lite-latest",
 ];
 const apiUrl = (model) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Errores pasajeros de Google (saturación o falla momentánea): vale la pena reintentar
 const TEMPORARY = [429, 500, 503];
 
-// Le pregunta a Gemini. Si el modelo está saturado, reintenta y luego usa el de respaldo.
+// Opcional: nivel de "pensamiento" del modelo (por ejemplo "low" para que responda más rápido).
+// Si no se define GEMINI_THINKING_LEVEL, se usa el que trae el modelo por defecto.
+function withThinking(payload) {
+  const level = process.env.GEMINI_THINKING_LEVEL;
+  if (!level) return payload;
+  return {
+    ...payload,
+    generationConfig: { ...payload.generationConfig, thinkingConfig: { thinkingLevel: level } },
+  };
+}
+
+// Le pregunta a Gemini: primero al modelo principal (hasta 30 s, porque "piensa" antes de responder)
+// y, si falla o está saturado, al modelo de respaldo (hasta 20 s).
 async function askGemini(payload) {
+  const attempts = [
+    { model: MODELS[0], timeout: 30000 },
+    { model: MODELS[1], timeout: 20000 },
+  ];
   let last = { ok: false, status: 0, data: {} };
-  for (const model of [MODELS[0], MODELS[0], MODELS[1]]) {
+  for (const { model, timeout } of attempts) {
     try {
       const response = await fetch(apiUrl(model), {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
-        body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(12000), // máximo 12 segundos por intento
+        body: JSON.stringify(withThinking(payload)),
+        signal: AbortSignal.timeout(timeout),
       });
       const data = await response.json().catch(() => ({}));
       if (response.ok) return { ok: true, status: 200, data };
@@ -42,7 +57,6 @@ async function askGemini(payload) {
       const reason = error.name === "TimeoutError" ? "tardó demasiado en responder" : error.message;
       console.error(`No se pudo conectar con Gemini (${model}): ${reason}`);
     }
-    await wait(800);
   }
   return last;
 }
