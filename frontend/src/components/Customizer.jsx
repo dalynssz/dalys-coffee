@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { categories, findProduct } from "../data/products";
+import { useCatalog } from "../context/CatalogContext";
 import { milks, sizes, sweeteners, syrups, extras, temperatures } from "../data/customization";
 import { formatPrice } from "../lib/format";
 import { useCart } from "../context/CartContext";
@@ -7,7 +7,6 @@ import SectionTitle from "./SectionTitle";
 import Icon from "./Icons";
 import "../styles/customizer.css";
 
-const baseCategories = categories.filter((c) => c.customizable);
 const coldCategories = ["frios", "nieves", "frappes"];
 
 function priceLabel(price) {
@@ -15,7 +14,9 @@ function priceLabel(price) {
 }
 
 export default function Customizer() {
-  const [base, setBase] = useState(baseCategories[0].products[3].name); // Cappuccino
+  const { categories, findProduct } = useCatalog();
+  const baseCategories = categories.filter((c) => c.customizable && c.products.length > 0);
+  const [chosenBase, setBase] = useState("Cappuccino");
   const [milk, setMilk] = useState(milks[0].name);
   const [size, setSize] = useState(sizes[0].name);
   const [sweetener, setSweetener] = useState(sweeteners[0].name);
@@ -25,7 +26,10 @@ export default function Customizer() {
   const [message, setMessage] = useState("");
   const { addItem, openCart } = useCart();
 
-  const baseProduct = findProduct(base);
+  // Si el producto elegido ya no existe (lo borró el admin), usamos el primero disponible
+  const baseProduct = findProduct(chosenBase) || findProduct(baseCategories[0]?.products[0]?.name);
+  if (!baseProduct) return null;
+  const base = baseProduct.name;
   const pick = (list, name) => list.find((option) => option.name === name);
   const sum = (list, names) => names.reduce((total, name) => total + pick(list, name).price, 0);
 

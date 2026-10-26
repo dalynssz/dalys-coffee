@@ -64,7 +64,9 @@ export async function apiRequest(path, { method = "GET", body, auth = false } = 
   }
 
   if (!response.ok) {
-    throw new Error(data.mensaje || `El servidor respondió con un error (${response.status}).`);
+    const error = new Error(data.mensaje || `El servidor respondió con un error (${response.status}).`);
+    error.status = response.status; // 401 = sesión vencida o no iniciada
+    throw error;
   }
   return data;
 }

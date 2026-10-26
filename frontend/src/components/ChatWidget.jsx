@@ -6,7 +6,7 @@
 // =====================================================
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { findProduct } from "../data/products";
+import { useCatalog } from "../context/CatalogContext";
 import { formatPrice } from "../lib/format";
 import Icon from "./Icons";
 import "../styles/chat.css";
@@ -23,6 +23,7 @@ export default function ChatWidget() {
   const [choice, setChoice] = useState(null);
   const [added, setAdded] = useState(false);
   const { addItem } = useCart();
+  const { findProduct } = useCatalog();
 
   const product = choice ? findProduct(choice.product) : null;
 

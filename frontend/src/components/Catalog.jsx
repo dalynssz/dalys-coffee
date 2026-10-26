@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { categories } from "../data/products";
+import { useCatalog } from "../context/CatalogContext";
 import { formatPrice } from "../lib/format";
 import { useCart } from "../context/CartContext";
 import Icon from "./Icons";
@@ -7,6 +7,7 @@ import SectionTitle from "./SectionTitle";
 import "../styles/catalog.css";
 
 export default function Catalog() {
+  const { categories } = useCatalog();
   const [activeId, setActiveId] = useState(categories[0].id);
   const [justAdded, setJustAdded] = useState(null);
   const { addItem } = useCart();
@@ -53,9 +54,13 @@ export default function Catalog() {
           </div>
         </header>
 
+        {active.products.length === 0 && (
+          <p className="catalog__empty">Por ahora no hay productos en esta categoría.</p>
+        )}
+
         <ul className="catalog__list">
           {active.products.map((product) => (
-            <li key={product.name} className="catalog__item">
+            <li key={product.id || product.name} className="catalog__item">
               <div className="catalog__line">
                 <span className="catalog__name">{product.name}</span>
                 <span className="catalog__dots" aria-hidden="true" />
