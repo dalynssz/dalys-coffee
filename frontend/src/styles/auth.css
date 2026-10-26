@@ -1,0 +1,105 @@
+/* Login */
+.auth {
+  min-height: calc(100vh - var(--header));
+  display: grid;
+  place-items: center;
+  padding: 48px 16px 96px;
+  background:
+    radial-gradient(ellipse 40% 50% at 20% 30%, rgba(255, 194, 212, 0.5), transparent 70%),
+    radial-gradient(ellipse 35% 45% at 85% 75%, rgba(255, 224, 233, 0.9), transparent 70%);
+}
+
+.auth__card {
+  width: min(100%, 420px);
+  padding: 40px clamp(24px, 6vw, 44px) 32px;
+  background: var(--blanco);
+  border-radius: 200px 200px 16px 16px;
+  box-shadow: var(--sombra);
+  outline: 1px solid var(--linea-fuerte);
+  outline-offset: -10px;
+  text-align: center;
+}
+
+.auth__rose {
+  margin: 0 auto 8px;
+}
+
+.auth__card h1 {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: 2.8rem;
+  color: var(--frambuesa);
+}
+
+.auth__lead {
+  margin-bottom: 24px;
+  font-style: italic;
+  color: var(--texto-suave);
+}
+
+.auth__card form {
+  text-align: left;
+}
+
+.auth__back {
+  display: inline-block;
+  margin-top: 22px;
+  font-size: 0.95rem;
+}
+
+/* Panel admin */
+.admin {
+  width: min(100% - 32px, var(--ancho));
+  min-height: calc(100vh - var(--header));
+  margin-inline: auto;
+  padding-block: 48px 96px;
+}
+
+.admin__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px dashed var(--linea-fuerte);
+}
+
+.admin__header > div {
+  flex: 1;
+  min-width: 220px;
+}
+
+.admin__header h1 {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  color: var(--frambuesa);
+}
+
+.admin__header p {
+  font-style: italic;
+  color: var(--texto-suave);
+}
+
+.admin__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.admin__panel {
+  padding: 28px;
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+}
+
+.admin__panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  color: var(--vino);
+}
