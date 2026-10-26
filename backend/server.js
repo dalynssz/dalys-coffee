@@ -11,6 +11,7 @@ const connectDB = require("./src/db");
 const authRoutes = require("./src/routes/auth");
 const productRoutes = require("./src/routes/products");
 const contactRoutes = require("./src/routes/contact");
+const chatRoutes = require("./src/routes/chat");
 
 if (!process.env.JWT_SECRET) {
   console.error("Falta JWT_SECRET en el archivo .env. Revisa .env.example.");
@@ -19,6 +20,9 @@ if (!process.env.JWT_SECRET) {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// En Render el servidor está detrás de un proxy: así sabemos la IP real de cada visitante
+app.set("trust proxy", 1);
 
 // CORS: solo estas páginas pueden usar la API desde el navegador
 const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
@@ -47,6 +51,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/chat", chatRoutes);
 
 // Ruta que no existe
 app.use((req, res) => {
