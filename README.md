@@ -19,9 +19,10 @@ Proyecto final de la ruta básica de **Jóvenes creaTIvos** ("Mi emprendimiento 
 | **Inicio** | Presenta la marca, su mensaje y la navegación. |
 | **Catálogo** | Más de 80 productos en 10 categorías, con precio y descripción. Se cargan desde la base de datos. |
 | **Personaliza** | Arma tu bebida (leche, tamaño, endulzante, jarabes, extras) y el precio se calcula al instante. |
-| **Carrito** | Agrega, cambia cantidades, elimina y confirma el pedido. |
+| **Carrito y pedidos a domicilio** | Agrega, cambia cantidades y elimina. Al confirmar, el cliente escribe nombre, teléfono y dirección y elige cómo pagar: **transferencia Nequi** o **efectivo contra entrega**. El pedido se **guarda en MongoDB** con un código `DALYS-…`. |
+| **Seguir mi pedido** | Con el código y el teléfono, el cliente ve el estado: Recibido → Pagado → En camino → Entregado. |
 | **Contacto** | Formulario validado que **guarda los mensajes en MongoDB**. |
-| **Admin** | Login seguro. Permite ver, marcar y borrar mensajes, y crear, editar, ocultar y borrar productos. |
+| **Admin** | Login seguro. Permite ver los pedidos y cambiar su estado (por ejemplo, marcarlo como **pagado** al revisar la transferencia Nequi), ver, marcar y borrar mensajes, y crear, editar, ocultar y borrar productos. |
 | **Asistente con IA** | Chat con **Google Gemini** que recomienda productos reales de la carta. Si Gemini no responde, usa un respaldo por palabras clave y lo avisa. |
 
 El diseño es *responsive*: funciona en computador, tablet y celular.
@@ -46,7 +47,7 @@ El diseño es *responsive*: funciona en computador, tablet y celular.
 Navegador (React en GitHub Pages)
         │  fetch()
         ▼
-Backend Express (Render) ──► MongoDB Atlas (productos, mensajes, usuario admin)
+Backend Express (Render) ──► MongoDB Atlas (productos, mensajes, pedidos, usuario admin)
         │
         └──► Google Gemini (solo el servidor conoce la clave)
 ```
@@ -62,7 +63,7 @@ dalys-coffee/
 ├── frontend/                 Página en React
 │   ├── src/
 │   │   ├── components/       Navbar, Hero, Catalog, Customizer, Contact, CartDrawer, ChatWidget...
-│   │   ├── pages/            Home, Login, Admin
+│   │   ├── pages/            Home, Login, Admin, TrackOrder, PaymentResult
 │   │   ├── context/          Estado del carrito y del catálogo
 │   │   ├── data/             Carta y opciones del personalizador
 │   │   ├── lib/              Conexión con la API y utilidades
@@ -72,8 +73,8 @@ dalys-coffee/
 │   ├── server.js             Arranque del servidor
 │   ├── seed.js               Carga inicial de productos y usuario admin
 │   ├── src/
-│   │   ├── models/           Product, Message, User
-│   │   ├── routes/           auth, products, contact, chat
+│   │   ├── models/           Product, Message, User, Order
+│   │   ├── routes/           auth, products, contact, chat, orders
 │   │   └── middleware/       Protección de rutas con JWT
 │   └── .env.example
 └── .github/workflows/        Publicación automática en GitHub Pages
@@ -119,6 +120,8 @@ npm run dev     # abre http://localhost:5173/dalys-coffee/
 | `GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` | Modelo principal y de respaldo de Gemini. |
 | `GEMINI_THINKING_LEVEL` | Opcional. `low` hace que el modelo responda más rápido. |
 | `FRONTEND_URL` | Páginas autorizadas a usar la API (CORS). |
+| `NEQUI_NUMBER` / `NEQUI_NAME` | Número y nombre que se muestran al cliente para pagar por Nequi. Si no hay número, solo aparece el pago contra entrega. |
+| `WOMPI_PUBLIC_KEY` / `WOMPI_INTEGRITY_SECRET` | Opcionales. Llaves de pruebas de Wompi para una pasarela de pago con tarjeta. Si están vacías, Wompi no aparece. |
 
 El archivo `.env` está en `.gitignore`: **no se sube a GitHub**.
 
@@ -139,6 +142,11 @@ El archivo `.env` está en `.gitignore`: **no se sube a GitHub**.
 | POST | `/api/auth/login` | Público | Iniciar sesión (devuelve un token) |
 | GET | `/api/auth/me` | Admin | Comprobar la sesión |
 | POST | `/api/chat` | Público | Preguntar al asistente con IA |
+| GET | `/api/orders/options` | Público | Formas de pago disponibles y valor del domicilio |
+| POST | `/api/orders` | Público | Crear un pedido (el servidor recalcula los precios desde la base de datos) |
+| GET | `/api/orders/track` | Público | Estado de un pedido con su código y el teléfono |
+| GET | `/api/orders` | Admin | Ver todos los pedidos |
+| PATCH | `/api/orders/:id` | Admin | Cambiar el estado de un pedido |
 
 ---
 
@@ -155,6 +163,7 @@ El archivo `.env` está en `.gitignore`: **no se sube a GitHub**.
 |---|---|---|
 | Landing / inicio con marca, mensaje y navegación | ✅ | `Hero`, `Navbar` |
 | Catálogo con detalles claros | ✅ | `Catalog` + base de datos |
+| Pedidos a domicilio con forma de pago | ✅ (extra) | `CartDrawer` + `POST /api/orders` + MongoDB |
 | Contacto real que registre solicitudes | ✅ | `Contact` + `POST /api/contact` + MongoDB |
 | Panel admin con login | ✅ | `Login`, `Admin`, JWT + bcrypt |
 | IA aplicada a una necesidad real | ✅ | `ChatWidget` + Gemini (recomienda productos de la carta) |
