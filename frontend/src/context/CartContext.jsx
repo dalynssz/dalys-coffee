@@ -32,7 +32,7 @@ export function CartProvider({ children }) {
 
   // Productos normales: si ya está, suma 1.
   // Bebidas personalizadas: siempre entran como una línea nueva.
-  function addItem({ name, price, details = "" }) {
+  function addItem({ name, price, details = "", base = "" }) {
     setItems((current) => {
       const key = details ? `${name}|${details}|${Date.now()}` : name;
       const existing = current.find((item) => item.key === key);
@@ -41,7 +41,7 @@ export function CartProvider({ children }) {
           item.key === key ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      return [...current, { key, name, price, details, quantity: 1 }];
+      return [...current, { key, name, price, details, base, quantity: 1 }];
     });
   }
 

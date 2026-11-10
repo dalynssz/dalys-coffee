@@ -2,6 +2,7 @@
 // PANEL DE ADMINISTRACIÓN
 // Solo funciona con sesión iniciada: el backend revisa el
 // token en cada petición (si no es válido, responde 401).
+//  - Pedidos: ver pedidos a domicilio y cambiar su estado
 //  - Mensajes: ver, marcar como leído y borrar
 //  - Catálogo: crear, editar, ocultar y borrar productos
 // =====================================================
@@ -18,7 +19,7 @@ import "../styles/admin.css";
 
 export default function Admin({ token, onLogout }) {
   const [username, setUsername] = useState("");
-  const [tab, setTab] = useState("messages");
+  const [tab, setTab] = useState("orders");
   const [error, setError] = useState("");
 
   // Comprobamos con el servidor que la sesión sigue activa
@@ -54,6 +55,9 @@ export default function Admin({ token, onLogout }) {
       {error && <p className="form-status form-status--error">{error}</p>}
 
       <div className="admin__tabs" role="tablist">
+        <button type="button" role="tab" aria-selected={tab === "orders"} className={tab === "orders" ? "is-active" : ""} onClick={() => setTab("orders")}>
+          <Icon name="bag" size={20} /> Pedidos
+        </button>
         <button type="button" role="tab" aria-selected={tab === "messages"} className={tab === "messages" ? "is-active" : ""} onClick={() => setTab("messages")}>
           <Icon name="mail" size={20} /> Mensajes
         </button>
@@ -62,8 +66,91 @@ export default function Admin({ token, onLogout }) {
         </button>
       </div>
 
-      {username && (tab === "messages" ? <Messages onLogout={onLogout} /> : <Products onLogout={onLogout} />)}
+      {username && tab === "orders" && <Orders onLogout={onLogout} />}
+      {username && tab === "messages" && <Messages onLogout={onLogout} />}
+      {username && tab === "products" && <Products onLogout={onLogout} />}
     </main>
+  );
+}
+
+// ---------------------------------------------------------------
+// PEDIDOS A DOMICILIO
+// ---------------------------------------------------------------
+const ORDER_STATUSES = ["pendiente", "pagado", "rechazado", "en camino", "entregado", "cancelado"];
+
+function Orders({ onLogout }) {
+  const [orders, setOrders] = useState(null);
+  const [status, setStatus] = useState("");
+
+  const handleError = useCallback(
+    (err) => (err.status === 401 ? onLogout("/login") : setStatus(err.message)),
+    [onLogout]
+  );
+
+  useEffect(() => {
+    apiRequest("/api/orders", { auth: true }).then(setOrders).catch(handleError);
+  }, [handleError]);
+
+  async function changeStatus(order, newStatus) {
+    try {
+      const saved = await apiRequest(`/api/orders/${order._id}`, { method: "PATCH", auth: true, body: { status: newStatus } });
+      setOrders((list) => list.map((o) => (o._id === saved._id ? saved : o)));
+    } catch (err) {
+      handleError(err);
+    }
+  }
+
+  if (!orders) return <p className="admin__empty">{status || "Cargando pedidos..."}</p>;
+
+  const paid = orders.filter((o) => o.status === "pagado").length;
+
+  return (
+    <section aria-label="Pedidos a domicilio">
+      <p className="admin__summary">
+        {orders.length} {orders.length === 1 ? "pedido" : "pedidos"} · {paid} pagados por despachar · Si es Nequi, revisa la transferencia antes de marcarlo como pagado
+      </p>
+      {status && <p className="form-status form-status--error">{status}</p>}
+      {orders.length === 0 && <p className="admin__empty">Todavía no hay pedidos. Aparecerán aquí cuando alguien pida a domicilio.</p>}
+      <ul className="admin__messages">
+        {orders.map((o) => (
+          <li key={o._id} className={`message order order--${o.status.replace(" ", "-")}`}>
+            <div className="message__head">
+              <strong>{o.reference}</strong>
+              <span className="order__badge">{o.status}</span>
+              <span className="order__method">{{ wompi: "Wompi", nequi: "Nequi", efectivo: "Efectivo" }[o.paymentMethod]}</span>
+              <time dateTime={o.createdAt}>
+                {new Date(o.createdAt).toLocaleString("es-CO", { dateStyle: "medium", timeStyle: "short" })}
+              </time>
+            </div>
+            <p>
+              <strong>{o.customer.name}</strong> · {o.customer.phone}
+              <br />
+              {o.customer.address}, {o.customer.neighborhood}
+              {o.customer.notes && <><br /><em>{o.customer.notes}</em></>}
+            </p>
+            <ul className="order__items">
+              {o.items.map((item, i) => (
+                <li key={i}>
+                  {item.quantity} × {item.name} — {formatPrice(item.price * item.quantity)}
+                  {item.details && <small> ({item.details})</small>}
+                </li>
+              ))}
+            </ul>
+            <div className="message__actions">
+              <strong>Total {formatPrice(o.total)}</strong>
+              <label className="order__status">
+                Estado{" "}
+                <select value={o.status} onChange={(e) => changeStatus(o, e.target.value)}>
+                  {ORDER_STATUSES.map((st) => (
+                    <option key={st}>{st}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

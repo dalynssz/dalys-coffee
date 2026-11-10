@@ -12,6 +12,7 @@ const authRoutes = require("./src/routes/auth");
 const productRoutes = require("./src/routes/products");
 const contactRoutes = require("./src/routes/contact");
 const chatRoutes = require("./src/routes/chat");
+const orderRoutes = require("./src/routes/orders");
 
 if (!process.env.JWT_SECRET) {
   console.error("Falta JWT_SECRET en el archivo .env. Revisa .env.example.");
@@ -52,6 +53,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Ruta que no existe
 app.use((req, res) => {

@@ -103,3 +103,79 @@
   font-size: 1.3rem;
   color: var(--vino);
 }
+
+/* Resultado del pago */
+.payment .cart__summary {
+  margin: 14px 0;
+  list-style: none;
+  padding: 12px 0;
+  border-block: 1px dashed var(--linea-fuerte);
+  text-align: left;
+}
+.payment .cart__summary li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.payment .cart__total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.payment .cart__total strong {
+  color: var(--frambuesa);
+  font-size: 1.3rem;
+}
+.payment__ref,
+.payment__address {
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+}
+.payment__address {
+  margin-bottom: 18px;
+}
+.payment h1 {
+  font-size: 2.3rem;
+  line-height: 1.2;
+}
+
+/* Seguir mi pedido */
+.track form { margin-bottom: 8px; }
+.track__result { margin-top: 22px; text-align: left; }
+.track__steps {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  counter-reset: paso;
+}
+.track__steps li {
+  position: relative;
+  padding-top: 34px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  counter-increment: paso;
+}
+.track__steps li::before {
+  content: counter(paso);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  line-height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rosa-pastel);
+  background: var(--blanco);
+  font-weight: 600;
+}
+.track__steps li.is-done { color: var(--vino); font-weight: 600; }
+.track__steps li.is-done::before { background: var(--frambuesa); border-color: var(--frambuesa); color: #fff; content: "✓"; }
+.track .cart__summary { list-style: none; padding: 12px 0; margin: 0 0 10px; border-block: 1px dashed var(--linea-fuerte); }
+.track .cart__summary li, .track .cart__total { display: flex; justify-content: space-between; gap: 12px; }
+.track .cart__total strong { color: var(--frambuesa); font-size: 1.2rem; }
+.track__closed { text-align: center; margin-bottom: 12px; }

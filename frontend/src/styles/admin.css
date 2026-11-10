@@ -204,3 +204,41 @@
     width: 100%;
   }
 }
+
+/* Pedidos */
+.order {
+  border-left: 5px solid var(--rosa-pastel);
+}
+.order--pagado { border-left-color: #6f9a5d; }
+.order--rechazado,
+.order--cancelado { border-left-color: #b0a3a7; opacity: 0.8; }
+.order--en-camino { border-left-color: var(--frambuesa); }
+
+.order__badge,
+.order__method {
+  font-size: 0.82rem;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--rosa-claro);
+  color: var(--vino);
+  text-transform: capitalize;
+}
+.order--pagado .order__badge { background: #e3eedc; color: #3f5a35; }
+.order__method { background: transparent; border: 1px solid var(--linea-fuerte); }
+
+.order__items {
+  margin: 10px 0 14px;
+  padding-left: 18px;
+  font-size: 0.95rem;
+}
+.order__items small { color: var(--texto-suave); }
+
+.order__status select {
+  margin-left: 6px;
+  padding: 6px 10px;
+  font: inherit;
+  border: 1.5px solid var(--linea);
+  border-radius: 8px;
+  background: var(--blanco);
+  color: var(--cafe);
+}

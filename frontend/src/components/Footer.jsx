@@ -14,7 +14,7 @@ export default function Footer() {
         <a href="https://facebook.com/" target="_blank" rel="noreferrer">Facebook</a>
       </nav>
       <p className="footer__legal">
-        © {new Date().getFullYear()} Daly's Coffee · <a href="#/admin">Administración</a>
+        © {new Date().getFullYear()} Daly's Coffee · <a href="#/pedido">Seguir mi pedido</a> · <a href="#/admin">Administración</a>
       </p>
     </footer>
   );

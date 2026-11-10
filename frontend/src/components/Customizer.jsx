@@ -64,7 +64,7 @@ export default function Customizer() {
   ];
 
   function handleAdd() {
-    addItem({ name: `${base} personalizado`, price: total, details: details.join(", ") });
+    addItem({ name: `${base} personalizado`, price: total, details: details.join(", "), base });
     setMessage(`Agregamos tu ${base} al carrito.`);
   }
 
